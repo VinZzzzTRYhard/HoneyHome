@@ -45,70 +45,23 @@ namespace HoneyHome
         private void GetDevicesList()
         {
             _devices.Clear();
-            _devices.Add(new Device()
+            if (_dataProvider?.IsDatabaseConnected == true)
             {
-                Id = 1,
-                RoomId = 1,
-                DeviceTypeId = DeviceType.Switch,
-                Name = "Switch Lamp 1",
-                CurrentValue = "On",
-                Information = "This is switch of Lamp in Room 1",
-                HasCommand = true,
-                ExecuteButtonName = "Switch Lamp Off",
-                DeviceExternalAction = new Action(() =>
+                var devicesInfo = _dataProvider.GetDevices();
+                foreach (var device in devicesInfo)
                 {
-                    if (SelectedSwitch.CurrentValue == "On")
+                    _devices.Add(new Device()
                     {
-                        SelectedSwitch.CurrentValue = "Off";
-                        SelectedSwitch.ExecuteButtonName = "Switch Lamp On";
-                    }
-                    else
-                    {
-                        SelectedSwitch.CurrentValue = "On";
-                        SelectedSwitch.ExecuteButtonName = "Switch Lamp Off";
-                    }
-                })
-            });
-
-            _devices.Add(new Device()
-            {
-                Id = 2,
-                RoomId = 2,
-                DeviceTypeId = DeviceType.Switch,
-                Name = "Switch Lamp 2",
-                CurrentValue = "Off",
-                Information = "This is switch of Lamp in Room 2"
-
-            });
-
-
-            _devices.Add(new Device()
-            {
-                Id = 3,
-                RoomId = 1,
-                DeviceTypeId = DeviceType.Temperature,
-                Name = "Room1 Temperature, C",
-                CurrentValue = "20.1",
-                Information = "This is temperature device in room1",
-            });
-
-            _devices.Add(new Device()
-            {
-                Id = 4,
-                DeviceTypeId = DeviceType.Weather,
-                Name = "Rzeszow Center Temperature, C",
-                CurrentValue = "+7",
-                Information = "This is temperature center of Rzeszow",
-            });
-            _devices.Add(new Device()
-            {
-                Id = 5,
-                RoomId = 1,
-                DeviceTypeId = DeviceType.Other,
-                Name = "Voltage in room1, V",
-                CurrentValue = "214",
-                Information = "This is voltage in room 1"
-            });
+                        Id = device.Id,
+                        RoomId = device.RoomId,
+                        DeviceTypeId = device.DeviceTypeId,
+                        Name = device.Name,
+                        Information = device.Information,
+                        HasCommand = device.HasCommand,
+                        ExecuteButtonName = device.ExecuteButtonName
+                    });                    
+                }
+            }
         }
 
 
@@ -232,6 +185,10 @@ namespace HoneyHome
             dialog.Owner = App.Current.MainWindow;
             dialog.DataContext = settingsVM;
             dialog.ShowDialog();
+
+            GetDevicesList();
+            UpdateDeviceCollection(SelectedRoom.RoomId);
+
         }
 
         public event EventHandler<bool> CloseRequest;

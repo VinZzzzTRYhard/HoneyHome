@@ -19,7 +19,7 @@ namespace HoneyHome.Model
             HasCommand = false;
         }
 
-        public Int64? RoomId { get=>Get<int?>(); set=>Set(value); }
+        public Int64? RoomId { get=>Get<Int64?>(); set=>Set(value); }
         public DeviceType DeviceTypeId { get=>Get<DeviceType>(); set=>Set(value); }
         public Int64 Id { get => Get<Int64>(); set => Set(value); }
         public string Name { get => Get<string>(); set => Set(value); }
