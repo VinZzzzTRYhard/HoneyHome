@@ -1,0 +1,231 @@
+﻿<Window x:Class="HoneyHome.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HoneyHome"
+        mc:Ignorable="d"
+        Title="Honey Home" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10">
+            <TextBlock Text="Select Rooms :" />
+            <ComboBox Margin="10,0" ItemsSource="{Binding RoomsCollection}" 
+                      SelectedItem="{Binding SelectedRoom}"
+                      DisplayMemberPath="Name" Width="118" />
+        </StackPanel>
+        <TabControl Margin="0,0,0,40" Grid.Row="1" SelectedIndex="{Binding SelectedTab}" >
+            <TabItem Header="Switches">
+                <Grid Margin="3, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView ItemsSource="{Binding SwitchSources}" SelectedItem="{Binding SelectedSwitch}" Grid.Column="0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50" Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Width="100" Header="Current Value" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CurrentValue}" TextAlignment="Center" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Column="1" Margin="10,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedSwitch.Name}"/>
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedSwitch.CurrentValue}"/>
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedSwitch.Information}"/>
+                        <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
+                                Content="{Binding Path=SelectedSwitch.ExecuteButtonName}" 
+                                Command="{Binding Path=SelectedSwitch.DeviceCommand}"
+                                Visibility="{Binding Path=SelectedSwitch.HasCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Temperature">
+                <Grid Margin="3, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView ItemsSource="{Binding TempSources}" SelectedItem="{Binding SelectedTemp}" Grid.Column="0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50" Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Width="100" Header="Current Value" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CurrentValue}" TextAlignment="Center" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Column="1" Margin="10,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedTemp.Name}"/>
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedTemp.CurrentValue}"/>
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedTemp.Information}"/>
+                        <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
+                                Content="{Binding Path=SelectedTemp.ExecuteButtonName}" 
+                                Command="{Binding Path=SelectedTemp.DeviceCommand}"
+                                Visibility="{Binding Path=SelectedTemp.HasCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Weather">
+                <Grid Margin="3, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView ItemsSource="{Binding WeatherSources}" SelectedItem="{Binding SelectedWeather}" Grid.Column="0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50" Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Width="100" Header="Current Value" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CurrentValue}" TextAlignment="Center" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Column="1" Margin="10,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedWeather.Name}"/>
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedWeather.CurrentValue}"/>
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedWeather.Information}"/>
+                        <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
+                                Content="{Binding Path=SelectedWeather.ExecuteButtonName}" 
+                                Command="{Binding Path=SelectedWeather.DeviceCommand}"
+                                Visibility="{Binding Path=SelectedWeather.HasCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Other">
+                <Grid Margin="3, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView ItemsSource="{Binding OtherSources}" SelectedItem="{Binding SelectedOther}" Grid.Column="0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50" Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Width="100" Header="Current Value" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CurrentValue}" TextAlignment="Center" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Column="1" Margin="10,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
+                        <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedOther.Name}"/>
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
+                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedOther.CurrentValue}"/>
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
+                        <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedOther.Information}"/>
+                        <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
+                                Content="{Binding Path=SelectedOther.ExecuteButtonName}" 
+                                Command="{Binding Path=SelectedOther.DeviceCommand}"
+                                Visibility="{Binding Path=SelectedOther.HasCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="15,15" HorizontalAlignment="Right">
+            <Button Content="Settings" Padding="10,0" Margin="10,0" Command="{Binding SettingsCommand}" />
+            <Button Content="Close" IsCancel="True" Padding="10,0" Margin="10,0" Command="{Binding CloseCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

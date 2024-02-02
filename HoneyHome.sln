@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyHome", "HoneyHome\HoneyHome.csproj", "{28743EBC-3210-4106-AF39-32E44DA8703B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28743EBC-3210-4106-AF39-32E44DA8703B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28743EBC-3210-4106-AF39-32E44DA8703B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28743EBC-3210-4106-AF39-32E44DA8703B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28743EBC-3210-4106-AF39-32E44DA8703B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B30F0232-C3CD-45FA-8039-880EFE7E55AE}
+	EndGlobalSection
+EndGlobal
