@@ -198,8 +198,6 @@ namespace HoneyHome
         private void OnShowGrapExecute()
         {
             IDevice selectedDevice = null;
-            Int64 deviceId = 0;
-            string Title = string.Empty;
             switch (SelectedTab)
             {
                 case 0:
