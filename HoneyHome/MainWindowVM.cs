@@ -1,22 +1,19 @@
 ﻿using HoneyHome.BaseVM;
 using HoneyHome.Database;
+using HoneyHome.Device;
 using HoneyHome.Interfaces;
 using HoneyHome.Model;
+using HoneyHome.Plugin;
 using HoneyHome.Settings;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HoneyHome
 {
     internal class MainWindowVM : ViewModelBase, ICloseable
     {
-        private readonly List<Device> _devices = new List<Device>();
         private IDatabaseProvider _dataProvider;
-
+        private PluginManager _pluginManager;
+        private DeviceManager _deviceManager;
         public MainWindowVM()
         {
             // Connect to DB
@@ -25,12 +22,23 @@ namespace HoneyHome
             if (!_dataProvider.ConnectToDatabase(fileDb)) // Can't connect -> let's create
                 _dataProvider.CreateDatabaseAndConnect(fileDb);
 
-            UpdateRoomCollection();
+            if (_dataProvider?.IsDatabaseConnected != true)
+            {
+                // Can't init database
+            }
 
-            
-            GetDevicesList();
+            _pluginManager = new PluginManager(_dataProvider);
+            _pluginManager.InitializePlugins();
+
+            _deviceManager = new DeviceManager(_dataProvider, _pluginManager);
+            _deviceManager.InitializeDevices();
+
+
+            UpdateRoomCollection();
             UpdateDeviceCollection(SelectedRoom.RoomId);
         }
+
+
 
         private string GetDatabasePath(string v)
         {
@@ -41,29 +49,6 @@ namespace HoneyHome
             }
             return v;
         }
-
-        private void GetDevicesList()
-        {
-            _devices.Clear();
-            if (_dataProvider?.IsDatabaseConnected == true)
-            {
-                var devicesInfo = _dataProvider.GetDevices();
-                foreach (var device in devicesInfo)
-                {
-                    _devices.Add(new Device()
-                    {
-                        Id = device.Id,
-                        RoomId = device.RoomId,
-                        DeviceTypeId = device.DeviceTypeId,
-                        Name = device.Name,
-                        Information = device.Information,
-                        HasCommand = device.HasCommand,
-                        ExecuteButtonName = device.ExecuteButtonName
-                    });                    
-                }
-            }
-        }
-
 
         // Source for Rooms
         public ObservableCollection<RoomsItems> RoomsCollection { get; private set; }
@@ -81,17 +66,17 @@ namespace HoneyHome
 
         public int SelectedTab { get=> Get<int>(); set => Set(value); }
 
-        public IList<Device> SwitchSources { get=> Get<IList<Device>>(); set => Set(value);}
-        public Device SelectedSwitch { get=>  Get<Device>(); set => Set(value);}
+        public IList<Model.Device> SwitchSources { get=> Get<IList<Model.Device>>(); set => Set(value);}
+        public Model.Device SelectedSwitch { get=>  Get<Model.Device>(); set => Set(value);}
 
-        public IList<Device> TempSources { get => Get<IList<Device>>(); set => Set(value); }
-        public Device SelectedTemp { get => Get<Device>(); set => Set(value); }
+        public IList<Model.Device> TempSources { get => Get<IList<Model.Device>>(); set => Set(value); }
+        public Model.Device SelectedTemp { get => Get<Model.Device>(); set => Set(value); }
 
-        public IList<Device> WeatherSources { get => Get<IList<Device>>(); set => Set(value); }
-        public Device SelectedWeather{ get => Get<Device>(); set => Set(value); }
+        public IList<Model.Device> WeatherSources { get => Get<IList<Model.Device>>(); set => Set(value); }
+        public Model.Device SelectedWeather{ get => Get<Model.Device>(); set => Set(value); }
 
-        public IList<Device> OtherSources { get => Get<IList<Device>>(); set => Set(value); }
-        public Device SelectedOther { get => Get<Device>(); set => Set(value); }
+        public IList<Model.Device> OtherSources { get => Get<IList<Model.Device>>(); set => Set(value); }
+        public Model.Device SelectedOther { get => Get<Model.Device>(); set => Set(value); }
 
         private void UpdateRoomCollection()
         {
@@ -111,15 +96,18 @@ namespace HoneyHome
         }
 
         private void UpdateDeviceCollection(Int64 roomId)
-        {
-            var switchSources = new List<Device>();
-            var tempSources = new List<Device>();
-            var weatherSources = new List<Device>();
-            var otherSources = new List<Device>();
+        {           
+            if (_deviceManager?.Devices == null)
+                return; // Not fully initialized
 
-            IEnumerable<Device> devicesFilterByRoom = _devices;
+            var switchSources = new List<Model.Device>();
+            var tempSources = new List<Model.Device>();
+            var weatherSources = new List<Model.Device>();
+            var otherSources = new List<Model.Device>();
+
+            IEnumerable<Model.Device> devicesFilterByRoom = _deviceManager.Devices;
             if (roomId != 0)
-                devicesFilterByRoom = _devices.Where(x=>x.RoomId == roomId);
+                devicesFilterByRoom = _deviceManager.Devices.Where(x=>x.RoomId == roomId);
 
             if (devicesFilterByRoom.Any())
                 foreach (var device in devicesFilterByRoom)
@@ -154,14 +142,16 @@ namespace HoneyHome
             WeatherSources = weatherSources;
             OtherSources = otherSources;
 
-            SelectedSwitch = SwitchSources.FirstOrDefault() ?? Device.None;
-            SelectedTemp = TempSources.FirstOrDefault() ?? Device.None;
-            SelectedWeather = WeatherSources.FirstOrDefault() ?? Device.None;  
-            SelectedOther = OtherSources.FirstOrDefault() ?? Device.None;
+            SelectedSwitch = SwitchSources.FirstOrDefault() ?? Model.Device.None;
+            SelectedTemp = TempSources.FirstOrDefault() ?? Model.Device.None;
+            SelectedWeather = WeatherSources.FirstOrDefault() ?? Model.Device.None;  
+            SelectedOther = OtherSources.FirstOrDefault() ?? Model.Device.None;
         }
 
         internal void WindowClosing()
         {
+            _deviceManager?.DisposeDevices();
+
             if (_dataProvider?.IsDatabaseConnected == true)
                 _dataProvider.CloseDatabase();
         }
@@ -186,7 +176,8 @@ namespace HoneyHome
             dialog.DataContext = settingsVM;
             dialog.ShowDialog();
 
-            GetDevicesList();
+            _deviceManager.InitializeDevices();
+
             UpdateDeviceCollection(SelectedRoom.RoomId);
 
         }

@@ -226,7 +226,7 @@ namespace HoneyHome.Settings
                     var deviceSources = new List<IDevice>();
                     DeviceSelected = null;
                     foreach (var device in deviceList)
-                        deviceSources.Add(new Device() 
+                        deviceSources.Add(new Model.Device() 
                         { 
                             Id = device.Id,
                             RoomId = device.RoomId,
@@ -236,7 +236,7 @@ namespace HoneyHome.Settings
                             PluginID = device.PluginID,
                             PluginParameter = device.PluginParameter,
                             HasCommand = device.HasCommand,
-                            ExecuteButtonName = device.ExecuteButtonName
+                            ExecuteButtonNameTemplate = device.ExecuteButtonName
                         });
 
                     DeviceSources = deviceSources;

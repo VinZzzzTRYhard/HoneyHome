@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Data.Common;
 using HoneyHome.Interfaces;
+using System.Xml.Linq;
 
 namespace HoneyHome.Database
 {
@@ -523,6 +524,26 @@ namespace HoneyHome.Database
             }
             return ret;
 
+        }
+        public bool AddDeviceValue(Int64 deviceId, string currentDeviceValue)
+        {
+            bool ret = false;
+            if (IsDatabaseConnected)
+            {
+                try
+                {
+                    var insertPluginInfo = $"INSERT INTO DeviceValues(DeviceID, DeviceValue) VALUES(?,?)";
+                    using (var cmd = new SQLiteCommand(insertPluginInfo, _connection))
+                    {
+                        cmd.Parameters.Add(new SQLiteParameter() { Value = deviceId });
+                        cmd.Parameters.Add(new SQLiteParameter() { Value = currentDeviceValue });
+                        return cmd.ExecuteNonQuery() != 0;
+                    }
+                }
+                catch { }
+            }
+
+            return ret;
         }
         #endregion Device Info
     }

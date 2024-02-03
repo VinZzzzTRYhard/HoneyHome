@@ -30,9 +30,10 @@ namespace HoneyHome.Interfaces
         #region Devices
         IList<IDevice> GetDevices();
         IDevice GetDevice(Int64 deviceId);
-        bool AddDeviceInfo(long? roomId, DeviceType deviceTypeId, string name, string information, long pluginID, string pluginParameter, bool hasCommand, string executeButtonName);
-        bool UpdateDeviceInfo(long? roomId, DeviceType deviceTypeId, string name, string information, long pluginID, string pluginParameter, bool hasCommand, string executeButtonName, long id);
+        bool AddDeviceInfo(Int64? roomId, DeviceType deviceTypeId, string name, string information, long pluginID, string pluginParameter, bool hasCommand, string executeButtonName);
+        bool UpdateDeviceInfo(Int64? roomId, DeviceType deviceTypeId, string name, string information, long pluginID, string pluginParameter, bool hasCommand, string executeButtonName, long id);
         bool DeleteDeviceInfo(Int64 deviceId);
+        bool AddDeviceValue(Int64 deviceId, string currentDeviceValue);
         #endregion Devices
     }
 }

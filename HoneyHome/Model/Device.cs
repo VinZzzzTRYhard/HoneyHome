@@ -23,7 +23,15 @@ namespace HoneyHome.Model
         public DeviceType DeviceTypeId { get=>Get<DeviceType>(); set=>Set(value); }
         public Int64 Id { get => Get<Int64>(); set => Set(value); }
         public string Name { get => Get<string>(); set => Set(value); }
-        public string CurrentValue { get => Get<string>(); set => Set(value); }
+        public string CurrentValue
+        {
+            get => Get<string>(); set
+            {
+                if (Set(value))
+                    RaisePropertyChanged(nameof(ExecuteButtonName));
+
+            }
+        }
 
         public string Information { get => Get<string>(); set { Set(value); } }
 
@@ -52,7 +60,20 @@ namespace HoneyHome.Model
             DeviceExternalAction?.Invoke();
         }
 
-        public string ExecuteButtonName { get => Get<string>(); set => Set(value); }
+        public string ExecuteButtonNameTemplate { get; set; }
+
+        private const string ValueMacros = "{Value}";
+        public string ExecuteButtonName
+        {
+            get
+            {
+                if (ExecuteButtonNameTemplate?.Contains(ValueMacros) == true)
+                    return ExecuteButtonNameTemplate.Replace(ValueMacros, CurrentValue);
+
+                return ExecuteButtonNameTemplate ?? string.Empty;
+            }
+            set => Set(value);
+        }
 
         public Action? DeviceExternalAction { get; set; }
 
