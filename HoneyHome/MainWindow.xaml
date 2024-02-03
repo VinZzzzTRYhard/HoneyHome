@@ -62,7 +62,9 @@
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedSwitch.Name}"/>
                         <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
-                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedSwitch.CurrentValue}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5" Grid.Row="1" Grid.Column="1" >
+                            <TextBlock Text="{Binding Path=SelectedSwitch.CurrentValue}"/>
+                        </StackPanel>
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedSwitch.Information}"/>
                         <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
@@ -112,7 +114,10 @@
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedTemp.Name}"/>
                         <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
-                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedTemp.CurrentValue}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5" Grid.Row="1" Grid.Column="1" >
+                            <TextBlock Text="{Binding Path=SelectedTemp.CurrentValue}"/>
+                            <Button Content="..." Margin="5,0" Width="23" Command="{Binding ShowGraph}" />
+                        </StackPanel>
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedTemp.Information}"/>
                         <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
@@ -162,7 +167,10 @@
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedWeather.Name}"/>
                         <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
-                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedWeather.CurrentValue}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5" Grid.Row="1" Grid.Column="1" >
+                            <TextBlock Text="{Binding Path=SelectedWeather.CurrentValue}"/>
+                            <Button Content="..." Margin="5,0" Width="23" Command="{Binding ShowGraph}"/>
+                        </StackPanel>
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedWeather.Information}"/>
                         <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 
@@ -212,7 +220,10 @@
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="0" Text="Name: " />
                         <TextBlock Margin="0,5" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedOther.Name}"/>
                         <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="0" Text="Current Value: " />
-                        <TextBlock Margin="0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedOther.CurrentValue}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,5" Grid.Row="1" Grid.Column="1" >
+                            <TextBlock Text="{Binding Path=SelectedOther.CurrentValue}"/>
+                            <Button Content="..." Margin="5,0" Width="23" Command="{Binding ShowGraph}"/>
+                        </StackPanel>                        
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="0" Text="Information: " />
                         <TextBlock Margin="0,5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedOther.Information}"/>
                         <Button Margin="0,5" Grid.ColumnSpan="2" Grid.Row="3" 

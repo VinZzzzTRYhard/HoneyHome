@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Data.Common;
 using HoneyHome.Interfaces;
 using System.Xml.Linq;
+using ScottPlot.TickGenerators.TimeUnits;
 
 namespace HoneyHome.Database
 {
@@ -543,7 +544,66 @@ namespace HoneyHome.Database
                 catch { }
             }
 
-            return ret;
+            return ret;      
+        }
+
+        public double? GetDeviceValues(Int64 deviceId, int hour, DateTime dt)
+        {
+            if (IsDatabaseConnected)
+            {
+                try
+                {
+                    int year = DateTime.UtcNow.Year;
+
+
+                    var getDeviceValue = $"SELECT CAST(AVG(DeviceValue) AS REAL) " +
+                                         $"FROM DeviceValues WHERE DeviceID = {deviceId} " +
+                                         $"AND  CAST(strftime('%Y', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {dt.Year} " +
+                                         $"AND  CAST(strftime('%m', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {dt.Month} " +
+                                         $"AND  CAST(strftime('%d', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {dt.Day} " +
+                                         $"AND  CAST(strftime('%H', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {hour}";
+
+                    using (var cmd = new SQLiteCommand(getDeviceValue, _connection))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows && reader.Read()) 
+                            return (!reader.IsDBNull(0) && reader.GetFieldType(0) == typeof(double) ? reader.GetDouble(0) : null);
+                    }
+                }
+                catch { }
+            }
+            return null;
+        }
+
+        public (double? min, double? max) GetDeviceMinMaxValues(Int64 deviceId, DateTime dt)
+        {
+            if (IsDatabaseConnected)
+            {
+                try
+                {
+                    int year = DateTime.UtcNow.Year;
+
+
+                    var getDeviceValue = $"SELECT CAST(MIN(DeviceValue) AS REAL), CAST(MAX(DeviceValue) AS REAL)" +
+                                         $"FROM DeviceValues WHERE DeviceID = {deviceId} " +
+                                         $"AND  CAST(strftime('%Y', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {dt.Year} " +
+                                         $"AND  CAST(strftime('%m', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {dt.Month} " +
+                                         $"AND  CAST(strftime('%d', datetime(UpdateDate, 'unixepoch', 'localtime' )) AS INTEGER ) = {dt.Day} ";
+
+                    using (var cmd = new SQLiteCommand(getDeviceValue, _connection))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows && reader.Read())
+                        {
+                            double? min = (!reader.IsDBNull(0) && reader.GetFieldType(0) == typeof(double) ? reader.GetDouble(0) : null);
+                            double? max = (!reader.IsDBNull(1) && reader.GetFieldType(1) == typeof(double) ? reader.GetDouble(1) : null);
+                            return (min, max);
+                        }
+                    }
+                }
+                catch { }
+            }
+            return (null, null);
         }
         #endregion Device Info
     }

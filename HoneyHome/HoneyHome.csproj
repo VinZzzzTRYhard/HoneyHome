@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ScottPlot.WPF" Version="5.0.21" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 

@@ -3,6 +3,7 @@ using HoneyHome.Database;
 using HoneyHome.Device;
 using HoneyHome.Interfaces;
 using HoneyHome.Model;
+using HoneyHome.Plot;
 using HoneyHome.Plugin;
 using HoneyHome.Settings;
 using System.Collections.ObjectModel;
@@ -189,6 +190,36 @@ namespace HoneyHome
         private void OnCloseCommand()
         {
             CloseRequest?.Invoke(this, false);
+        }
+
+        RelayCommand? _showGraph;
+        public RelayCommand ShowGraph => _showGraph ?? (_showGraph = new RelayCommand(OnShowGrapExecute));
+
+        private void OnShowGrapExecute()
+        {
+            IDevice selectedDevice = null;
+            Int64 deviceId = 0;
+            string Title = string.Empty;
+            switch (SelectedTab)
+            {
+                case 0:
+                    selectedDevice  = SelectedSwitch; break;
+                case 1:
+                    selectedDevice =  SelectedTemp; break;
+                case 2:
+                    selectedDevice = SelectedWeather; break;
+                case 3:
+                    selectedDevice = SelectedOther; break;
+            }
+            if ((selectedDevice?.Id ?? 0) > 0)
+            {
+                var plotVm = new PlotVM(_dataProvider, selectedDevice.Id);
+                plotVm.Title = $"{selectedDevice.Information} at {DateTime.UtcNow.ToString("D")}";
+                var plotDlg = new Plot.Plot();
+                plotDlg.DataContext = plotVm;
+                plotDlg.ShowDialog();
+            }
+
         }
     }
 }

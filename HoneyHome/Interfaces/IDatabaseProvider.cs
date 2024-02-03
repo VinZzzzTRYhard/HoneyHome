@@ -34,6 +34,8 @@ namespace HoneyHome.Interfaces
         bool UpdateDeviceInfo(Int64? roomId, DeviceType deviceTypeId, string name, string information, long pluginID, string pluginParameter, bool hasCommand, string executeButtonName, long id);
         bool DeleteDeviceInfo(Int64 deviceId);
         bool AddDeviceValue(Int64 deviceId, string currentDeviceValue);
+        double? GetDeviceValues(Int64 deviceId, int hour, DateTime dt);
+        (double? min, double? max) GetDeviceMinMaxValues(Int64 deviceId, DateTime dt);
         #endregion Devices
     }
 }

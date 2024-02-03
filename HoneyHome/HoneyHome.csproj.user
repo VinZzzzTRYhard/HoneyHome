@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Plot\Plot.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Settings\Devices\DeviceInfo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,6 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Plot\Plot.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Settings\Devices\DeviceInfo.xaml">
