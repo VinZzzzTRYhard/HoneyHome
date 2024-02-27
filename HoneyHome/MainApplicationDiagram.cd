@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HoneyHome.MainWindowVM">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YIAABCAEAAANACAFAAQAAEAACIAgAADCBAAABACIAQA=</HashCode>
+      <FileName>MainWindowVM.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_dataProvider" />
+      <Field Name="_deviceManager" />
+      <Field Name="_pluginManager" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.BaseVM.ViewModelBase" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABACAAAABQBACAAEAAAAgAAAACAAAAgAAABAAAA=</HashCode>
+      <FileName>BaseVM\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Model.Device">
+    <Position X="3.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACEAQCAgAIAAAACCAAAkUAABAAAAAFAAAEAAEAAAA=</HashCode>
+      <FileName>Model\Device.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Plot.PlotVM" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAICAABAAEAEgAAAAAAEAAAAAAAAAQAAggBAAAAAA=</HashCode>
+      <FileName>Plot\PlotVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Settings.Devices.DeviceInfoVM" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAACECECAgAAwEAAAAAAQlQAADAAAAAFAEAABgAEAAA=</HashCode>
+      <FileName>Settings\Devices\DeviceInfoVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Settings.Plugins.PluginInfoVM" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAASACEAAAAAQAAAAAACAEQAACAAAAAAAkAgBAAEAkA=</HashCode>
+      <FileName>Settings\Plugins\PluginInfoVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Settings.Rooms.RoomVM" Collapsed="true">
+    <Position X="10.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACEAAAAAQAAAAAAAAAQAACAAAAAAAEAAAAAEAAA=</HashCode>
+      <FileName>Settings\Rooms\RoomVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Settings.SettingsVM" Collapsed="true">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>WAAAiSIEFAQFASEAAAAgNEICgoAIEShAAAAABGEQBAE=</HashCode>
+      <FileName>Settings\SettingsVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Device.DeviceManager" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEABAAAAAAkAAEAAAAAACAAQACICAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Device\DeviceManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_dataProvider" />
+      <Field Name="_pluginManager" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_devices" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HoneyHome.Plugin.PluginManager">
+    <Position X="7.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAFAAAAQACAAQIAQAAIAEAAAAABAAAAAAEAAAA=</HashCode>
+      <FileName>Plugin\PluginManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_databaseProvider" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_devicesDict" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HoneyHome.Database.HoneyDatabaseProvider">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="HoneyHome.Database.HoneyDatabaseProvider.Room" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\HoneyDatabaseProvider.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="HoneyHome.Database.HoneyDatabaseProvider.PluginInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\HoneyDatabaseProvider.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="HoneyHome.Database.HoneyDatabaseProvider.DeviceInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\HoneyDatabaseProvider.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IBAACgABICAABEGAAACCCBAAAADAAQgAAAAAAoQABEA=</HashCode>
+      <FileName>Database\HoneyDatabaseProvider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_connection" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Data.SQLite.SQLiteConnection" Collapsed="true">
+    <Position X="17.5" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="HoneyHome.Model.RoomsItems">
+    <Position X="7" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RoomsItems.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HoneyHome.Model.PluginInfo">
+    <Position X="9.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAACAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\PluginInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="HoneyHome.Interfaces.IDatabaseProvider">
+    <Position X="12.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAACgABIAAABEGAAACCCBAAAADAAQgAAAAAAIQABEA=</HashCode>
+      <FileName>Interfaces\IDatabaseProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PluginSDK.IPluginSDK">
+    <Position X="10.25" Y="5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="HoneyHome.Interfaces.IDevice">
+    <Position X="0.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAACAgAAAAAAAAAAAgQAABAAAAAFAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IDevice.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HoneyHome.Interfaces.IRoom">
+    <Position X="5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRoom.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HoneyHome.Interfaces.IPluginInfo" Collapsed="true">
+    <Position X="11.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAACAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPluginInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
